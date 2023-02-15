@@ -1,12 +1,13 @@
 import pymysql
-from retreive import data
+import pandas as pd
+from anonimize import data
 
 target_conn = pymysql.connect(host='localhost', user='root', password='root', db='db1')
 
+
 # Post the data to the target database
-cursor = target_conn.cursor()
-for row in data:
-    cursor.execute('INSERT INTO klant (voornaam,achternaam,mail,registratie_datum) VALUES (%s, %s, %s, %s)', row)
+# insert the DataFrame into the database
+data = pd.DataFrame(data = pd.DataFrame(data, columns=['voornaam', 'achternaam','mail','registratie_datum']))
 
 # Commit the changes to the target database
 target_conn.commit()
